@@ -1,23 +1,123 @@
+---
+// 1. スクリプト・設定エリア
+import '../styles/global.css'; 
+
+interface Props {
+    title?: string;
+}
+
+const { title = "My Favorite Space" } = Astro.props;
+---
+
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<html lang="ja">
+    <head>
+        <!-- Font Awesome の読み込みはバッチリです！ -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+        <meta charset="UTF-8" />
+        <meta name="description" content="Astro description" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
+    </head>
+    <body>
+        <header class="site-header">
+    <nav class="nav-menu">
+      <a href="/">ホーム画面</a>
+      <a href="/page1">最近のライブ事情</a>
+      <a href="/page2">最近のコンテンツ事情</a>
+    </nav>
+  </header>
+        <!-- 
+          slot の周りを div で囲む必要はありませんが、
+          body 自体に中央寄せの設定を持たせると確実です。
+        -->
+        <slot />
+    </body>
 </html>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+<style is:global>
+  /* 右上に固定するためのスタイル */
+  .site-header {
+    /* これが重要！画面の決まった位置に固定します */
+    position: fixed; 
+    top: 20px;
+    right: 20px;
+    
+    /* 他の要素より手前に表示させる */
+    z-index: 9999; 
+    display: inline-block;
+    padding: 5px 25px;
+    text-decoration: none;
+    border-radius: 20px;
+    font-weight: 900;
+    font-size: 0.95rem;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* 背景を少し透過させると、重なっても文字が読みやすいです */
+    background: rgba(230, 255, 251, 0.8);
+    color: rgb(59, 130, 246);
+    border: 2px solid rgb(178, 242, 187);
+    box-shadow: 0 4px 0 rgb(178, 242, 187);
+    backdrop-filter: blur(5px); /* 背景をぼかすおしゃれ加工 */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+
+  .nav-menu {
+    display: flex;
+  justify-content: center;
+  gap: 15px;
+  padding: 5px 0;
+  flex-wrap: wrap;
+  }
+
+  .nav-menu a:hover {
+  transform: translateY(-3px);
+  background: rgb(255, 255, 255); /* 背景を白に */
+  box-shadow: 0 6px 0 rgb(178, 242, 187); /* 影を伸ばす */
+  color: rgb(37, 99, 235); /* 文字を少し濃い青に */
+}
+
+/* クリックした時の「カチッ」とした感触 */
+.nav-menu a:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 rgb(178, 242, 187);
+}
+
+  /* スマホで見るときにメニューが大きすぎる場合はここで調整 */
+  @media (max-width: 480px) {
+    .site-header {
+      top: 10px;
+      right: 10px;
+      padding: 5px 15px;
+    }
+    .nav-menu {
+      font-size: 0.9rem;
+    }
+  }
+    /* ページ全体の基本スタイル */
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        /* 1. 背景をライトブルーに変更 */
+        background-color: #e0f2fe; 
+        /* 2. 文字フォントを少し綺麗に */
+        font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+        /* 3. 縦方向にコンテンツが伸びても背景が途切れないように */
+        min-height: 100vh;
+        /* 4. 全ての要素が横に飛び出さないように */
+        overflow-x: hidden;
+    }
+
+    /* 
+       もし index.astro の .container だけでは中央に寄らない場合、
+       ここですべての直接の子要素を中央に寄せる設定も有効です
+    */
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 </style>

@@ -1,0 +1,69 @@
+---
+interface Props {
+  name: string;
+  image: string;
+  comment: string;
+  color?: string;
+}
+
+const { name, image, comment, color = "#ffb6c1" } = Astro.props;
+---
+
+<div class="oshi-card" style={`--accent: ${color}`}>
+  <div class="image-wrapper">
+    <img src={image} alt={name} />
+  </div>
+  <div class="content">
+    <h3>{name}</h3>
+    <p>{comment}</p>
+  </div>
+</div>
+
+<style>
+  .oshi-card {
+    /* 縦並びにして中央に寄せる設定 */
+    display: flex;
+    flex-direction: column; 
+    align-items: center;    
+    text-align: center;
+    
+    width: 100%;
+    max-width: 450px; /* カードが広がりすぎないように制限 */
+    margin: 0 auto 1.5rem; /* カード自体を中央に配置 */
+    
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    /* 左線ではなく、下にアクセント線を入れると中央揃えに合います */
+    border-bottom: 8px solid var(--accent);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    box-sizing: border-box;
+  }
+
+  .image-wrapper {
+    width: 150px;  /* 画像を少し大きくして目立たせる */
+    height: 150px;
+    margin-bottom: 1rem;
+    flex-shrink: 0;
+  }
+
+  .image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px; /* 推し画像を少し丸く */
+  }
+
+  .content h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--accent);
+    font-size: 1.4rem;
+  }
+
+  .content p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #4b5563; /* 少し柔らかい黒 */
+  }
+</style>

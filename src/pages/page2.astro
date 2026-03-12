@@ -1,0 +1,131 @@
+---
+// src/pages/oshi.astro
+import Layout from '../layouts/Layout.astro';
+
+// SNS情報のリスト（--- の内側に移動）
+const snsLinks = [
+  { name: 'X (Twitter)', url: 'https://x.com/reportdasou', icon: 'fa-brands fa-x-twitter', color: '#000000' },
+  { name: 'Instagram', url: 'https://instagram.com/yamap_dayon', icon: 'fa-brands fa-instagram', color: '#E4405F' },
+  { name: 'Bluesky', url: 'https://bsky.app/profile/yamap-dayou.bsky.social', icon: 'svg-bluesky', color: '#0085ff' },
+  { name: 'note', url: 'https://note.com/reportdasou/portal', icon: 'fa-solid fa-file-lines', color: '#2cb696' },
+  { name: 'Eventernote', url: 'https://www.eventernote.com/users/YamaP_desu', icon: 'fa-solid fa-calendar-days', color: '#005bac' },
+];
+---
+<body>
+<header class="visual-header">
+  <div class="header-overlay">
+    <h1 class="header-visual-title">YamaP's Archive</h1>
+  </div>
+</header>
+
+<Layout title="My Favorite Characters">
+
+  <main class="container">
+    <section id='Bang Dream!' class="white-block info-section">
+      <div class="balloon-title">BanG Dream!</div>
+      <div class="block-content">
+        <p>
+          去年の6月にMyGO!!!!!とAve Mujicaを観てからバンドリにハマりました。それ以降いろんなバンドリ現場に参加しています！
+          ガルパのストーリーも読み始めています...!!読めば読むほどキャラに対する印象が変わっていってとても面白いです。
+          BanG Dream!全般的に推しています！いろんなバンドの中で特に○○専とかはないです。
+        </p>
+      </div>
+    </section>
+
+    <section id='recently event' class="white-block info-section">
+      <div class="balloon-title">最近のライブ、現場事情</div>
+      <div class="block-content">
+        <img src="/images/minase.jpg" alt="水瀬いのり" class="inline-photo" />
+        <p>
+          基本バンドリ現場が多いです。Aqoursなどたまにラブライブ!や声優さんの単独公演にも参加しています。気になったライブに財布と相談しながら参加しています。
+        </p>
+      </div>
+    </section>
+
+    <section id='favorite artists' class="white-block info-section">
+      <div class="balloon-title">推している声優 / Favorite Music</div>
+      <div class="block-content">
+        <div class="photo-grid-main">
+          <a href="https://open.spotify.com/intl-ja/track/0ptkGlF5Vau28GmEYopEPp?si=95dfdd5f4a5e4cfe" target="_blank" class="grid-item">
+            <img src="/images/seiyuu1.jpg" alt="画像1" class="target-photo" />
+          </a>
+          <a href="https://open.spotify.com/intl-ja/track/3OPvSWiU5PTpLYb9dkI0te?si=84f004879fc8442e" target="_blank" class="grid-item">
+            <img src="/images/seiyuu2.jpg" alt="画像2" class="target-photo" />
+          </a>
+        </div>
+        <p class="caution-text">※タップするとジャケ写と違う曲が流れますが、仕様です。</p>
+        <p class="mt-4">
+          水瀬いのりさんのいのりまち☘、東山奈央さんの虹のわっか🌈などのFC会員です。FCに入ったのは2025年からになります。よろしくお願いします!!
+          お二人の曲どちらも中学の頃から聴いていて、好きな曲を1つずつ挙げさせていただくと、水瀬いのりさんは｢Catch the Rainbow!｣、東山奈央さんは｢君と僕のシンフォニー｣です。
+          他にもいろんな方に関してツイートします...
+        </p>
+      </div>
+    </section>
+
+    <section id="favorite-characters" class="white-block info-section">
+      <div class="balloon-title">推しキャラ</div>
+      <div class="block-content">
+        <div class="photo-grid-main">
+          <img src="/images/osikyara1.jpg" alt="氷川紗夜" class="main-photo" />
+          <img src="/images/osikyara2.jpg" alt="氷川日菜" class="main-photo" />
+        </div>
+
+        <div class="text-block">
+          <p>
+            一番の推しキャラは、氷川姉妹です！紗夜は、｢真面目かつ努力家｣それに対し日菜は｢すぐに理解し感覚的天才少女｣と性格から何から何まで真反対なキャラです。
+          </p>
+        </div>
+
+        <div class="text-block">
+          <p>
+            ガルパのストーリーを読み進めている際に、｢星に願う短冊｣や｢秋時雨に傘を｣、｢ふたつ星のアンサンブル｣などのイベントストーリーを読んでから、この姉妹を推してます！姉妹愛って素晴らしい...<br>
+            なので紗夜の曲である｢Determination Symphony｣が本当に好きです...
+          </p>
+        </div>
+
+        <div class="vertical-gallery">
+          <img src="/images/osikyara3.jpg" alt="sayohina 3" class="sub-photo" />
+          <img src="/images/osikyara4.jpg" alt="sayohina 4" class="sub-photo" />
+        </div>
+
+        <div class="text-block caution-block">
+          <p>ぜひ、ガルパのストーリーを読んでみてください！キャラの魅力がより伝わると思います。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="sns-icons">
+      {snsLinks.map(sns => (
+        <a href={sns.url} target="_blank" rel="noopener noreferrer" aria-label={sns.name} class="sns-link">
+          {sns.icon === 'svg-bluesky' ? (
+            <svg viewBox="0 0 512 512" style={`fill: ${sns.color}; width: 1.8rem; height: 1.8rem; vertical-align: middle;`}>
+              <path d="M111.8 62.2C170.2 105.9 233 194.7 256 242.4c23-47.6 85.8-136.4 144.2-180.2c42.1-31.6 110.3-56 110.3 21.8c0 15.5-8.9 130.5-14.1 149.2C478.1 298 412 314.6 353.1 304.5c102.9 17.5 129.1 75.5 72.5 140.6c-83 95.1-159.4-15.8-169.6-30.2c-10.2 14.4-86.6 125.3-169.6 30.2c-56.7-65.1-30.4-123.1 72.5-140.6C99.9 314.6 33.8 298 15.7 233.1C10.5 214.4 1.6 99.5 1.6 84c0-77.8 68.2-53.4 110.2-21.8z"/>
+            </svg>
+          ) : (
+            <i class={sns.icon} style={`color: ${sns.color}`}></i>
+          )}
+        </a>
+      ))}
+    </div>
+    <p>Built with <a href="https://astro.build" target="_blank" rel="noopener" class="astro-link">Astro</a></p>
+    <p>&copy; 2026 YamaP</p>
+  </footer>
+</Layout>
+</body>
+<style>
+  .sns-icons {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 20px;
+    font-size: 1.8rem;
+  }
+  .sns-icons a {
+    transition: transform 0.2s;
+  }
+  .sns-icons a:hover {
+    transform: scale(1.2);
+  }
+</style>

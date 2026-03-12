@@ -1,0 +1,47 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="About - このサイトについて">
+  <main class="container">
+    <section class="white-block">
+      <h1 class="text-3xl font-bold text-blue-600 mb-4">ようこそ！</h1>
+      
+      <p class="text-gray-700 leading-relaxed mb-4">
+        これはあなたの紹介サイトの「Aboutページ」です。
+      </p>
+      
+      <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded mb-8">
+        クリック！
+      </button>
+
+      <hr class="my-8" />
+
+      <h2 class="text-xl font-semibold mb-2">このサイトについて</h2>
+      <p class="text-gray-600">
+        推し活の記録やSNSリンクをまとめるためにAstroで作成しています。
+      </p>
+      
+      <!-- トップに戻るリンク -->
+      <div class="mt-8">
+        <a href="/" class="text-blue-500 underline">トップページに戻る</a>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  /* index.astro と同じスタイルを当てて中央に寄せる */
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+  .white-block {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    text-align: center;
+  }
+</style>

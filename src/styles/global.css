@@ -1,0 +1,404 @@
+/* =========================================
+   1. 変数とベース設定
+   ========================================= */
+:root {
+  --bg-blue: #e0f2fe;
+  --card-white: #ffffff;
+  --text-color: #333333;
+  --accent-color: #ff69b4;
+  --astro-orange: #ff5d01;
+  --balloon-blue: #a5e5ff;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--bg-blue);
+  color: var(--text-color);
+  font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* =========================================
+   2. 共通パーツ (画像・リンク)
+   ========================================= */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}
+
+/* aタグ自体の色を固定し、ホバー時のみ変化させる */
+a {
+  color: inherit; /* 基本は親の文字色を継承 */
+  text-decoration: none;
+  transition: opacity 0.3s;
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+/* =========================================
+   3. 吹き出しブロックのデザイン
+   ========================================= */
+.info-section {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid #dcf4ff;
+  position: relative;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  width: 90%;
+  max-width: 600px;
+  box-sizing: border-box;
+}
+
+.balloon-title {
+  position: absolute;
+  top: -15px;
+  left: 20px;
+  background-color: var(--balloon-blue);
+  color: #444;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  z-index: 10;
+}
+
+.balloon-title::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 15px;
+  border: 8px solid transparent;
+  border-top-color: var(--balloon-blue);
+}
+
+.block-content {
+  margin-top: 25px;
+  color: #555;
+  line-height: 1.8;
+  font-size: 0.95rem;
+}
+
+/* =========================================
+   4. 画像レイアウト
+   ========================================= */
+.photo-grid-main {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.photo-grid-main a {
+  flex: 1;
+}
+
+.main-photo {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.main-photo:hover {
+  transform: scale(1.03);
+}
+
+.vertical-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  margin: 30px 0;
+}
+
+.sub-photo {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 12px;
+}
+
+.caution-block {
+  margin-top: 30px;
+  padding: 15px;
+  background: #f0f9ff;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+  color: #0369a1;
+}
+
+.target-photo {
+  width: 100%;
+  max-width: 200px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto;
+  transition: transform 0.2s;
+}
+
+/* プロフィールセクション全体 */
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* すべて中央寄せ */
+  text-align: center;
+  padding: 40px 20px;
+}
+
+/* 画像のラッパー（大きさを安定させる） */
+.profile-image-wrapper {
+  width: 100%;
+  max-width: 320px; /* ぼやけない程度のちょうどいいサイズ */
+  margin-bottom: 20px;
+}
+
+.profile-main-image {
+  width: 100%;
+  height: auto;
+  border-radius: 15px; /* 元の形を活かす角丸 */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  image-rendering: -webkit-optimize-contrast; /* 鮮明に見せるためのプロパティ */
+}
+
+/* 名前 */
+.profile-name {
+  font-size: 2rem;
+  font-weight: 900;
+  margin: 10px 0;
+  color: #334155;
+  letter-spacing: 0.05em;
+}
+
+/* 自己紹介 */
+.profile-bio p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #64748b;
+  max-width: 450px;
+  margin: 0 auto 25px;
+}
+
+/* SNSアイコンの整列 */
+.sns-icons {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* アイコン同士の隙間 */
+  margin-top: 10px;
+}
+
+.sns-link {
+  font-size: 1.8rem; /* アイコンの大きさ */
+  transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sns-link:hover {
+  transform: translateY(-3px) scale(1.1);
+  opacity: 0.8;
+}
+/* =========================================
+   5. リスト
+   ========================================= */
+.event-history-list {
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 10px;
+}
+
+.event-history-list li {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #444;
+  border-bottom: 1px dashed #eef2f3;
+  padding-bottom: 5px;
+}
+
+/* =========================================
+   6. ブログ
+   ========================================= */
+.blog-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.blog-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 12px 10px;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.blog-item:hover {
+  background-color: #f0f9ff;
+}
+
+.blog-date {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  font-family: monospace;
+  min-width: 80px;
+}
+
+.blog-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: bold;
+  color: #334155;
+}
+
+/* =========================================
+   7. 目次と固定メニュー
+   ========================================= */
+.table-of-contents {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px auto 40px;
+  width: 90%;
+  max-width: 500px;
+  box-sizing: border-box;
+}
+
+.table-of-contents ul {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+
+/* =========================================
+   8. フッター
+   ========================================= */
+.site-footer {
+  margin-top: 60px;
+  padding: 40px 0;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  border-top: 1px solid #e2e8f0;
+  width: 100%;
+}
+
+.astro-link {
+  color: var(--astro-orange);
+  font-weight: bold;
+}
+
+/* =========================================
+   10. レスポンシブ
+   ========================================= */
+@media (max-width: 480px) {
+  .photo-grid-main {
+    /* スマホでは横並びをやめるか、高さを調整 */
+    gap: 10px;
+  }
+  .main-photo {
+    height: 130px;
+  }
+  .table-of-contents ul {
+    grid-template-columns: 1fr;
+  }
+}
+
+.view-more-btn {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 12px 25px;
+  background-color: var(--balloon-blue);
+  color: #444;
+  border-radius: 25px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+
+.view-more-btn:hover {
+  transform: scale(1.05);
+  background-color: #8cd7ff;
+}
+
+/* =========================================
+   新設：ビジュアルヘッダー（背景画像）
+   ========================================= */
+.visual-header {
+  width: 100%;
+  height: 40vh;         /* ★画面の高さの40%をヘッダーにする */
+  background-image: url('/images/profile1.jpg'); /* ★敷きたい画像へのパス */
+  background-size: cover;    /* 画像を枠いっぱいに広げる */
+  background-position: center; /* 画像の中央を表示 */
+  background-attachment: fixed; /* ★スクロール時に画像が動かない（パララックス効果） */
+  position: relative;
+  z-index: 1;           /* コンテンツより下に配置 */
+}
+
+/* 画像の上に薄い黒を載せて、文字を読みやすくする */
+.header-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.3); /* ★0.3の薄さで黒を載せる */
+  display: flex;
+  align-items: center;  /* 文字を上下中央へ */
+  justify-content: center; /* 文字を左右中央へ */
+}
+
+/* ヘッダー内のタイトル */
+.header-visual-title {
+  font-size: 3.5rem;    /* かなり大きく */
+  font-weight: 900;
+  color: white;         /* 白文字 */
+  margin: 0;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-shadow: 0 4px 10px rgba(0,0,0,0.5); /* 文字に強い影をつけて浮き立たせる */
+}
+
+/* ヘッダーができたので、containerの上余白を調整 */
+.container {
+  padding-top: 50px !important; /* ヘッダーの下からすぐ始まるように */
+  position: relative;
+  z-index: 2;           /* ヘッダーより上に配置 */
+}
+
+/* スマホ用の調整 */
+@media (max-width: 480px) {
+  .visual-header {
+    height: 30vh;       /* スマホでは少し低く */
+    background-attachment: scroll; /* スマホではパララックスを無効化（重いため） */
+  }
+  .header-visual-title {
+    font-size: 2rem;    /* スマホでは文字を小さく */
+  }
+}
