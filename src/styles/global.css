@@ -1,13 +1,18 @@
+@charset "UTF-8";
+
 /* =========================================
-   1. 変数とベース設定
+   1. 変数とベース設定 (ダークモード仕様)
    ========================================= */
 :root {
-  --bg-blue: #e0f2fe;
-  --card-white: #ffffff;
-  --text-color: #333333;
-  --accent-color: #ff69b4;
-  --astro-orange: #ff5d01;
-  --balloon-blue: #a5e5ff;
+  --bg-color: #0f172a;       /* 全体の背景 (深いネイビー) */
+  --card-bg: #1e293b;        /* カードの背景 (少し明るいネイビー) */
+  --text-main: #f8fafc;      /* メインの文字色 (白) */
+  --text-sub: #cbd5e1;       /* サブの文字色 (薄いグレー) */
+  --text-black: #000000;     /* 黒文字用 */
+  --border-color: #334155;   /* 境界線の色 */
+  --balloon-bg: #0284c7;     /* 吹き出しの青 (少し濃いめ) */
+  --astro-orange: #ff7a29;
+  --accent-color: #ff79c6;
 }
 
 html {
@@ -19,9 +24,10 @@ body {
   padding: 0;
   width: 100%;
   min-height: 100vh;
-  background-color: var(--bg-blue);
-  color: var(--text-color);
-  font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  /* ★コマンドプロンプト風（等幅フォント）にする魔法の指定 */
+  font-family: Consolas, "Courier New", Menlo, Monaco, "MS Gothic", monospace !important;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,12 +40,11 @@ img {
   max-width: 100%;
   height: auto;
   display: block;
-  border-radius: 12px;
+  border-radius: 0; /* ★角を90度に統一 */
 }
 
-/* aタグ自体の色を固定し、ホバー時のみ変化させる */
 a {
-  color: inherit; /* 基本は親の文字色を継承 */
+  color: inherit;
   text-decoration: none;
   transition: opacity 0.3s;
 }
@@ -49,166 +54,133 @@ a:hover {
 }
 
 /* =========================================
-   3. 吹き出しブロックのデザイン
+   3. 追従（固定）ヘッダー
    ========================================= */
-.info-section {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  border: 2px solid #dcf4ff;
-  position: relative;
-  margin-top: 40px;
-  margin-bottom: 20px;
-  width: 90%;
-  max-width: 600px;
-  box-sizing: border-box;
+.sticky-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+  background: rgba(15, 23, 42, 0.85); 
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-.balloon-title {
-  position: absolute;
-  top: -15px;
-  left: 20px;
-  background-color: var(--balloon-blue);
-  color: #444;
-  padding: 8px 20px;
-  border-radius: 8px;
-  font-weight: bold;
-  font-size: 0.9rem;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  z-index: 10;
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 12px 20px;
 }
 
-.balloon-title::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 15px;
-  border: 8px solid transparent;
-  border-top-color: var(--balloon-blue);
+.mypage-btn {
+  font-weight: 900;
+  font-size: 1.1rem;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.block-content {
-  margin-top: 25px;
-  color: #555;
-  line-height: 1.8;
-  font-size: 0.95rem;
+.header-sns-icons {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.header-sns-link {
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.header-sns-link:hover {
+  transform: scale(1.15);
 }
 
 /* =========================================
-   4. 画像レイアウト
+   4. プロフィールブロック
    ========================================= */
-.photo-grid-main {
+.profile-block {
+  margin-top: 80px;
+  padding: 30px;
+}
+
+.profile-layout {
   display: flex;
-  gap: 15px;
-  justify-content: center;
-  margin-bottom: 25px;
-}
-
-.photo-grid-main a {
-  flex: 1;
-}
-
-.main-photo {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
-}
-
-.main-photo:hover {
-  transform: scale(1.03);
-}
-
-.vertical-gallery {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
   align-items: center;
-  margin: 30px 0;
+  gap: 25px;
 }
 
-.sub-photo {
+.profile-avatar {
+  flex-shrink: 0;
+  width: 110px;
+  height: 110px;
+  border-radius: 0; /* ★アイコンも直角にして世界観を統一 */
+  overflow: hidden;
+  border: 3px solid var(--border-color);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.profile-avatar img {
   width: 100%;
-  max-width: 400px;
-  height: auto;
-  border-radius: 12px;
-}
-
-.caution-block {
-  margin-top: 30px;
-  padding: 15px;
-  background: #f0f9ff;
-  border-radius: 8px;
-  text-align: center;
-  font-weight: bold;
-  color: #0369a1;
-}
-
-.target-photo {
-  width: 100%;
-  max-width: 200px;
-  height: 150px;
+  height: 100%;
   object-fit: cover;
-  border-radius: 8px;
-  display: block;
-  margin: 0 auto;
-  transition: transform 0.2s;
 }
 
-/* プロフィールセクション全体 */
-.profile-section {
+.profile-info {
   display: flex;
   flex-direction: column;
-  align-items: center; /* すべて中央寄せ */
-  text-align: center;
-  padding: 40px 20px;
+  gap: 12px;
+  text-align: left;
 }
 
-/* 画像のラッパー（大きさを安定させる） */
-.profile-image-wrapper {
-  width: 100%;
-  max-width: 320px; /* ぼやけない程度のちょうどいいサイズ */
-  margin-bottom: 20px;
-}
-
-.profile-main-image {
-  width: 100%;
-  height: auto;
-  border-radius: 15px; /* 元の形を活かす角丸 */
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  image-rendering: -webkit-optimize-contrast; /* 鮮明に見せるためのプロパティ */
-}
-
-/* 名前 */
-.profile-name {
+.profile-username {
+  margin: 0;
   font-size: 2rem;
   font-weight: 900;
-  margin: 10px 0;
-  color: #334155;
+  color: var(--text-black);
   letter-spacing: 0.05em;
 }
 
-/* 自己紹介 */
-.profile-bio p {
-  font-size: 1rem;
-  line-height: 1.8;
-  color: #64748b;
-  max-width: 450px;
-  margin: 0 auto 25px;
+.profile-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-/* SNSアイコンの整列 */
+.tag {
+  background-color: var(--border-color);
+  color: var(--text-sub);
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 6px 14px;
+  border-radius: 0; /* ★タグも直角バッジに変更 */
+  transition: background-color 0.2s;
+}
+
+.tag:hover {
+  background-color: var(--balloon-bg);
+  color: var(--text-main);
+}
+
+/* SNSアイコン */
 .sns-icons {
   display: flex;
   justify-content: center;
-  gap: 20px; /* アイコン同士の隙間 */
-  margin-top: 10px;
+  gap: 25px;
+  margin-bottom: 15px;
+  font-size: 1.8rem;
 }
 
 .sns-link {
-  font-size: 1.8rem; /* アイコンの大きさ */
   transition: transform 0.2s ease;
   display: flex;
   align-items: center;
@@ -219,96 +191,192 @@ a:hover {
   transform: translateY(-3px) scale(1.1);
   opacity: 0.8;
 }
+
 /* =========================================
-   5. リスト
+   5. ブロック・セクション (吹き出し等)
    ========================================= */
+.white-block {
+  background: var(--card-bg);
+  padding: 30px;
+  border-radius: 0; /* ★ブロックの角を直角に変更 */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  text-align: center; /* ★全体を中央揃え */
+  margin-bottom: 30px;
+}
+
+.info-section {
+  position: relative;
+  margin-top: 40px;
+  width: 90%;
+  max-width: 600px;
+  box-sizing: border-box;
+  border: 2px solid var(--border-color);
+}
+
+.balloon-title {
+  position: absolute;
+  top: -15px;
+  left: 20px;
+  background-color: var(--balloon-bg);
+  color: var(--text-main);
+  padding: 8px 20px;
+  border-radius: 0; /* ★タイトルの角を直角に変更 */
+  font-weight: bold;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  z-index: 10;
+}
+
+.balloon-title::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 15px;
+  border: 8px solid transparent;
+  border-top-color: var(--balloon-bg);
+}
+
+.block-content {
+  margin-top: 15px;
+  color: var(--text-black);
+  line-height: 1.8;
+  font-size: 0.95rem;
+  text-align: center; /* ★中身の文章を中央揃え */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* ★中のリストなどを中央に寄せる */
+}
+
+/* =========================================
+   6. リスト・テーブル (中央揃えレイアウト)
+   ========================================= */
+/* 参戦予定リスト */
 .event-history-list {
   list-style-type: none;
   padding-left: 0;
   margin-top: 10px;
+  text-align: center; /* ★中央揃え */
+  width: 100%;
 }
 
 .event-history-list li {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   line-height: 1.6;
   margin-bottom: 8px;
   font-weight: bold;
-  color: #444;
-  border-bottom: 1px dashed #eef2f3;
-  padding-bottom: 5px;
+  color: var(--text-main);
+  border-bottom: 1px dashed var(--border-color);
+  padding-bottom: 10px;
+  padding-top: 5px;
 }
 
-/* =========================================
-   6. ブログ
-   ========================================= */
-.blog-list {
+/* PC環境リスト */
+.spec-list {
+  margin: 15px 0 0 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
+  width: 100%;
+}
+
+.spec-item {
+  display: flex;
+  flex-direction: column; /* ★横並びから縦並びに変更 */
+  justify-content: center;
+  align-items: center; /* ★中央揃え */
+  padding: 12px 5px;
+  border-bottom: 1px dashed var(--border-color);
   gap: 5px;
 }
 
-.blog-item {
+.spec-item:last-child {
+  border-bottom: none;
+}
+
+.spec-item dt {
+  font-weight: bold;
+  color: var(--balloon-bg);
   display: flex;
-  align-items: flex-start;
-  gap: 15px;
-  padding: 12px 10px;
-  border-radius: 8px;
-  transition: background-color 0.2s;
-  border-bottom: 1px solid #f1f5f9;
-}
-
-.blog-item:hover {
-  background-color: #f0f9ff;
-}
-
-.blog-date {
-  font-size: 0.8rem;
-  color: #94a3b8;
-  font-family: monospace;
-  min-width: 80px;
-}
-
-.blog-title {
+  align-items: center;
+  gap: 10px;
   margin: 0;
+}
+
+.spec-item dd {
+  margin: 0;
+  color: var(--text-black);
+  text-align: center; /* ★中央揃え */
   font-size: 0.95rem;
   font-weight: bold;
-  color: #334155;
+  word-break: break-word;
 }
 
-/* =========================================
-   7. 目次と固定メニュー
-   ========================================= */
-.table-of-contents {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  padding: 20px;
-  margin: 20px auto 40px;
-  width: 90%;
-  max-width: 500px;
-  box-sizing: border-box;
-}
-
-.table-of-contents ul {
+/* ライブ参戦日程 */
+.schedule-list {
   list-style: none;
   padding: 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  margin: 15px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
+.schedule-item {
+  display: flex;
+  flex-direction: column; /* ★縦並びに変更 */
+  align-items: center; /* ★中央揃え */
+  text-align: center; /* ★文字も中央揃え */
+  gap: 10px;
+  padding: 15px 10px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.schedule-item:last-child {
+  border-bottom: none;
+}
+
+.schedule-item.upcoming {
+  background-color: #1e293b; /* ★ダークモードに合わせた背景色に変更 */
+  border: 1px solid var(--balloon-bg); /* 左の線ではなく枠線に変更してシャープに */
+}
+
+.schedule-date {
+  font-weight: bold;
+  color: var(--balloon-bg);
+  font-size: 0.95rem;
+}
+
+.schedule-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+}
+
+.schedule-title {
+  color: var(--text-black);
+  font-weight: bold;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.schedule-venue {
+  font-size: 0.8rem;
+  color: #64748b;
+}
 
 /* =========================================
-   8. フッター
+   7. フッター
    ========================================= */
 .site-footer {
   margin-top: 60px;
-  padding: 40px 0;
+  padding: 40px 20px;
   text-align: center;
   font-size: 0.85rem;
-  color: #00afcc;
-  border-top: 1px solid #e2e8f0;
+  color: var(--text-sub);
+  border-top: 1px solid var(--border-color);
   width: 100%;
+  box-sizing: border-box;
 }
 
 .astro-link {
@@ -316,89 +384,39 @@ a:hover {
   font-weight: bold;
 }
 
-/* =========================================
-   10. レスポンシブ
-   ========================================= */
-@media (max-width: 480px) {
-  .photo-grid-main {
-    /* スマホでは横並びをやめるか、高さを調整 */
-    gap: 10px;
-  }
-  .main-photo {
-    height: 130px;
-  }
-  .table-of-contents ul {
-    grid-template-columns: 1fr;
-  }
-}
-
-.view-more-btn {
-  display: inline-block;
+.disclaimer {
   margin-top: 15px;
-  padding: 12px 25px;
-  background-color: var(--balloon-blue);
-  color: #444;
-  border-radius: 25px;
-  font-weight: bold;
-  text-decoration: none;
-  transition: transform 0.2s;
-}
-
-.view-more-btn:hover {
-  transform: scale(1.05);
-  background-color: #00afcc;
+  font-size: 0.75rem;
+  color: #64748b;
+  line-height: 1.5;
 }
 
 /* =========================================
-   新設：ビジュアルヘッダー（背景画像）
+   8. レスポンシブ (スマホ用表示)
    ========================================= */
-.visual-header {
-  width: 100%;
-  height: 40vh;         /* ★画面の高さの40%をヘッダーにする */
-  background-image: url('/images/profile1.jpg'); /* ★敷きたい画像へのパス */
-  background-size: cover;    /* 画像を枠いっぱいに広げる */
-  background-position: center; /* 画像の中央を表示 */
-  background-attachment: fixed; /* ★スクロール時に画像が動かない（パララックス効果） */
-  position: relative;
-  z-index: 1;           /* コンテンツより下に配置 */
-}
-
-/* 画像の上に薄い黒を載せて、文字を読みやすくする */
-.header-overlay {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.3); /* ★0.3の薄さで黒を載せる */
-  display: flex;
-  align-items: center;  /* 文字を上下中央へ */
-  justify-content: center; /* 文字を左右中央へ */
-}
-
-/* ヘッダー内のタイトル */
-.header-visual-title {
-  font-size: 3.5rem;    /* かなり大きく */
-  font-weight: 900;
-  color: white;         /* 白文字 */
-  margin: 0;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  text-shadow: 0 4px 10px rgba(0,0,0,0.5); /* 文字に強い影をつけて浮き立たせる */
-}
-
-/* ヘッダーができたので、containerの上余白を調整 */
-.container {
-  padding-top: 50px !important; /* ヘッダーの下からすぐ始まるように */
-  position: relative;
-  z-index: 2;           /* ヘッダーより上に配置 */
-}
-
-/* スマホ用の調整 */
 @media (max-width: 480px) {
-  .visual-header {
-    height: 30vh;       /* スマホでは少し低く */
-    background-attachment: scroll; /* スマホではパララックスを無効化（重いため） */
+  .profile-layout {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
   }
-  .header-visual-title {
-    font-size: 2rem;    /* スマホでは文字を小さく */
+  
+  .profile-info {
+    align-items: center;
+    text-align: center;
   }
+  
+  .profile-tags {
+    justify-content: center;
+  }
+}
+/* =========================================
+   強制的にすべての角を直角（90度）にする設定
+   ========================================= */
+.white-block,
+.balloon-title,
+.profile-avatar,
+.tag,
+img {
+  border-radius: 0 !important;
 }

@@ -1,167 +1,193 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import OshiCard from '../components/Card.astro';
+import '../styles/global.css';
 
-// SNS情報のリスト
+// SNS情報のリスト（1箇所に集約）
 const snsLinks = [
-  { name: 'X (Twitter)', url: 'https://x.com/reportdasou', icon: 'fa-brands fa-x-twitter', color: '#000000' },
-  { name: 'Instagram', url: 'https://instagram.com/yamap_dayon', icon: 'fa-brands fa-instagram', color: '#E4405F' },
-  { name: 'Bluesky', url: 'https://bsky.app/profile/yamap-dayou.bsky.social', icon: 'svg-bluesky', color: '#0085ff' },
-  { name: 'note', url: 'https://note.com/reportdasou/portal', icon: 'fa-solid fa-file-lines', color: '#2cb696' },
-  { name: 'Eventernote', url: 'https://www.eventernote.com/users/YamaP_desu', icon: 'fa-solid fa-calendar-days', color: '#005bac' },
+  { name: 'X (Twitter)', url: 'https://x.com/Blue_daisy1225', icon: 'fa-brands fa-x-twitter', color: '#ffffff' },
+  { name: 'Bluesky', url: 'https://bsky.app/profile/yamap-dayou.bsky.social', icon: 'svg-bluesky', color: '#0085ff' },
+  { name: 'github', url: 'https://github.com/Wan-Dog', icon: 'fa-brands fa-github', color: '#ffffff' },
+  { name: 'eventernote', url: 'https://www.eventernote.com/users/Yamadesu123', icon: 'fa-solid fa-calendar-days', color: '#ffb6c1' },
 ];
 ---
-<header class="visual-header">
-  <div class="header-overlay">
-    <h1 class="header-visual-title">YamaP's Archive</h1>
-  </div>
-</header>
-<body>
-<Layout title="My Profile">
-  <body class="container">
-    <section id="profile" class="white-block profile-section">
-  <!-- 1. プロフィール画像（ぼやけ防止のため最大幅を適切に設定） -->
-  <div class="profile-image-wrapper">
-    <img src="/images/profile.jpg" alt="YamaP" class="profile-main-image" />
-  </div>
+<Layout title="My Profile - YamaP's Archive">
 
-  <!-- 2. 名前 -->
-  <h1 class="profile-name">YamaP</h1>
-
-  <!-- 3. 自己紹介文章 -->
-  <div class="profile-bio">
-    <p>YamaP（やまぴー）です。ちなみにアイマスPではないです。<br>関東近郊のライブによく出没します。</p>
-  </div>
-</section>
-
-<!-- 自己紹介ブロック -->
- <section id='XAccount' class="white-block info-section">
-  <div class="balloon-title">Xアカウント</div>
-  <div class="block-content">
-    <p>
-      ユーザー名：@reportdasou<br />
-      X(Twitter) アカウント<br />
-      アカウント開設から：<span id="day-counter">0</span> 日<br />
-      Since: 2023.07.14
-    </p>
-  </div>
-  <script is:inline>
-  function updateCounter() {
-    // 2023年7月14日 (月はマイナス1して「6」)
-    const startDate = new Date(2023, 6, 14); 
-    const today = new Date();
-
-    const diffTime = today - startDate;
-    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
-    const display = document.getElementById('day-counter');
-    if (display) {
-      // カンマ区切りにする場合は .toLocaleString() を残し、不要なら消してOKです
-      display.innerText = diffDays.toLocaleString();
-    }
-  }
-  updateCounter();
-</script>
-
- </section>
-
- <section id='Xintroduction' class="white-block info-section">
-  <div class="balloon-title">X自己紹介</div>
-  <div class="block-content">
-    <p>
-      大学生/バンドリーマー/新川崎/Aqours/夢のつぼみ
-    </p>
-  </div>
- </section>
-
- <section id='introduction' class="white-block info-section">
-  <div class="balloon-title">このアカウントの運用方針</div>
-  <div class="block-content">
-    <p>
-      基本Bang Dream!、ラブライブ!などその他諸々のコンテンツや声優さん関連などのみツイートしています。また、RTや独り言多めです。ライブ前後では、感想等でツイートします。ライブのセトリやゲームのイベストなど、ネタバレ等気をつけていますが、たまにモザイクなど忘れる場合があります。
-    </p>
-  </div>
-</section>
-
-</body>
-
-  </main>
- 
-  <footer class="site-footer">
-  <!-- 4. SNSアイコン（横に並べる） -->
-  <div class="sns-icons">
-    {snsLinks.map(sns => (
-      <a href={sns.url} target="_blank" rel="noopener noreferrer" aria-label={sns.name} class="sns-link">
-        {sns.icon === 'svg-bluesky' ? (
-          <svg viewBox="0 0 512 512" style={`fill: ${sns.color}; width: 1.8rem; height: 1.8rem; vertical-align: middle;`}>
-            <path d="M111.8 62.2C170.2 105.9 233 194.7 256 242.4c23-47.6 85.8-136.4 144.2-180.2c42.1-31.6 110.3-56 110.3 21.8c0 15.5-8.9 130.5-14.1 149.2C478.1 298 412 314.6 353.1 304.5c102.9 17.5 129.1 75.5 72.5 140.6c-83 95.1-159.4-15.8-169.6-30.2c-10.2 14.4-86.6 125.3-169.6 30.2c-56.7-65.1-30.4-123.1 72.5-140.6C99.9 314.6 33.8 298 15.7 233.1C10.5 214.4 1.6 99.5 1.6 84c0-77.8 68.2-53.4 110.2-21.8z"/>
-          </svg>
-        ) : (
-          <i class={sns.icon} style={`color: ${sns.color}`}></i>
-        )}
+  <header class="sticky-header">
+    <div class="header-inner">
+      <a href="/" class="mypage-btn">
+        <i class="fa-solid fa-house"></i> MyPage
       </a>
-    ))}
-  </div>
-  <p>
-    Built with 
-    <a href="https://astro.build" target="_blank" rel="noopener" class="astro-link">
-      Astro
-    </a>
-  </p>
-  <p>&copy; 2026 YamaP's Archive</p>
-  <p style="margin-top: 10px;">
-    当サイトは個人によるプロフィールであり、各権利所有者様、関係各社様とは一切関係ありません。<br>
-    使用している著作物（画像・歌詞等）の権利は、それぞれの権利所有者様に帰属します。
-  </p>
-</footer>
 
+      <div class="header-sns-icons">
+        {snsLinks.map(sns => (
+          <a href={sns.url} target="_blank" rel="noopener noreferrer" aria-label={sns.name} class="header-sns-link">
+            {sns.icon === 'svg-bluesky' ? (
+              <svg viewBox="0 0 512 512" style={`fill: ${sns.color}; width: 1.2rem; height: 1.2rem;`}>
+                <path d="M111.8 62.2C170.2 105.9 233 194.7 256 242.4c23-47.6 85.8-136.4 144.2-180.2c42.1-31.6 110.3-56 110.3 21.8c0 15.5-8.9 130.5-14.1 149.2C478.1 298 412 314.6 353.1 304.5c102.9 17.5 129.1 75.5 72.5 140.6c-83 95.1-159.4-15.8-169.6-30.2c-10.2 14.4-86.6 125.3-169.6 30.2c-56.7-65.1-30.4-123.1 72.5-140.6C99.9 314.6 33.8 298 15.7 233.1C10.5 214.4 1.6 99.5 1.6 84c0-77.8 68.2-53.4 110.2-21.8z"/>
+              </svg>
+            ) : (
+              <i class={sns.icon} style={`color: ${sns.color}`}></i>
+            )}
+          </a>
+        ))}
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <section id="profile" class="white-block profile-block">
+      <div class="profile-layout">
+        <div class="profile-avatar">
+          <img src="/images/profile.jpg" alt="YamaP" />
+        </div>
+
+        <div class="profile-info">
+          <h1 class="profile-username">YamaP</h1>
+          
+          <div class="profile-tags">
+            <span class="tag">大学生</span>
+            <span class="tag">アニメ</span>
+            <span class="tag">ゲーム</span>
+            <span class="tag">女性声優</span>
+            <span class="tag">コンテンツ</span>
+            <span class="tag">音楽</span>
+            <span class="tag">パソコン関係</span>
+            <span class="tag">プログラミング(勉強中)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="page-nav">
+      <a href="#introduction" class="nav-link">自己紹介</a>
+      <a href="#projects" class="nav-link">プロジェクト</a>
+      <a href="#device-environment" class="nav-link">デバイス環境</a>
+    </nav>
+
+    <section id="introduction" class="white-block info-section">
+      <div class="balloon-title">自己紹介</div>
+      <div class="block-content">
+        <p>YamaP（やまぴー）です。関東近郊のライブ現場によく出没します。</p>
+      </div>
+    </section>
+
+    <section id="projects" class="white-block info-section">
+      <div class="balloon-title">プロジェクト</div> 
+      <div class="block-content">
+        <p>制作中</p>
+      </div>
+    </section>
+
+    <section id="device-environment" class="white-block info-section">
+      <div class="balloon-title">デバイス環境</div>
+      <div class="block-content">
+        <dl class="spec-list">
+          <div class="spec-item">
+            <dt><i class="fa-solid fa-microchip"></i> CPU</dt>
+            <dd>AMD Ryzen 7 5700X</dd>
+          </div>
+          <div class="spec-item">
+            <dt><i class="fa-solid fa-desktop"></i> GPU</dt>
+            <dd>Radeon RX 9060 XT</dd>
+          </div>
+          <div class="spec-item">
+            <dt><i class="fa-solid fa-chess-board"></i> Motherboard</dt>
+            <dd>AMD A520M</dd>
+          </div>
+          <div class="spec-item">
+            <dt><i class="fa-solid fa-chess-board"></i> SSD</dt>
+            <dd>1TB + 2TB</dd>
+          </div>
+          <div class="spec-item">
+            <dt><i class="fa-solid fa-microchip"></i> ノートPC</dt>
+            <dd>FMVU90J3BN</dd>
+          </div>
+          <div class="spec-item">
+            <dt><i class="fa-solid fa-memory"></i> iPhone</dt>
+            <dd>iPhone 17 (256GB)</dd>
+          </div>
+          <div class="spec-item">
+            <dt><i class="fa-solid fa-memory"></i> iPad</dt>
+            <dd>iPad Air M4 (128GB)</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+    </div>
+
+  <footer class="site-footer">
+    <div class="sns-icons">
+      {snsLinks.map(sns => (
+        <a href={sns.url} target="_blank" rel="noopener noreferrer" aria-label={sns.name} class="sns-link">
+          {sns.icon === 'svg-bluesky' ? (
+            <svg viewBox="0 0 512 512" style={`fill: ${sns.color}; width: 1.8rem; height: 1.8rem; vertical-align: middle;`}>
+              <path d="M111.8 62.2C170.2 105.9 233 194.7 256 242.4c23-47.6 85.8-136.4 144.2-180.2c42.1-31.6 110.3-56 110.3 21.8c0 15.5-8.9 130.5-14.1 149.2C478.1 298 412 314.6 353.1 304.5c102.9 17.5 129.1 75.5 72.5 140.6c-83 95.1-159.4-15.8-169.6-30.2c-10.2 14.4-86.6 125.3-169.6 30.2c-56.7-65.1-30.4-123.1 72.5-140.6C99.9 314.6 33.8 298 15.7 233.1C10.5 214.4 1.6 99.5 1.6 84c0-77.8 68.2-53.4 110.2-21.8z"/>
+            </svg>
+          ) : (
+            <i class={sns.icon} style={`color: ${sns.color}`}></i>
+          )}
+        </a>
+      ))}
+    </div>
+
+    <p>Built with <a href="https://astro.build" target="_blank" rel="noopener" class="astro-link">Astro</a></p>
+    <p>&copy; 2026 YamaP's Archive</p>
+    
+    <p class="disclaimer">
+      当サイトは個人によるプロフィールであり、各権利所有者様、関係各社様とは一切関係ありません。<br>
+      使用している著作物（画像等）の権利は、それぞれの権利所有者様に帰属します。
+    </p>
+  </footer>
 </Layout>
-</body>
+
 <style>
-  .container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 40px 20px;
-  }
+  /* 全体レイアウト */
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+  }
 
-  /* 白いブロックの共通設定 */
-  .white-block {
-    background: white;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    text-align: center;
-    margin-bottom: 30px;
-  }
+  /* 白いブロックの共通設定 */
+  .white-block {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    text-align: center;
+    margin-bottom: 30px;
+  }
 
-  .main-icon {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin-bottom: 15px;
-  }
+  /* ナビゲーションメニューのスタイル */
+  .page-nav {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 30px auto 10px;
+    max-width: 600px;
+    padding: 0 20px;
+  }
 
-  .title {
-    color: #475569;
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    text-align: center;
-  }
+  .nav-link {
+    text-decoration: none;
+    color: #475569;
+    font-weight: bold;
+    padding: 10px 24px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: all 0.2s ease;
+  }
 
-  /* SNSアイコンのスタイル */
-  .sns-icons {
-    display: flex;
-    justify-content: center;
-    gap: 25px;
-    margin-top: 20px;
-    font-size: 1.8rem; /* アイコンの大きさ */
-  }
+  .nav-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    color: #0085ff;
+  }
 
-  .sns-icons a {
-    transition: transform 0.2s;
-  }
+  .nav-link.active {
+    background: #0085ff;
+    color: white;
+  }
 
-  .sns-icons a:hover {
-    transform: scale(1.2); /* ホバーした時に少し大きく */
-  }
-</style>
+  /* SNS
